@@ -16,33 +16,5 @@ import java.util.Optional;
 
 @RestController
 public class PlacesController {
-    @Autowired
-    PlacesRepository placesRepository;
 
-    @Autowired
-    UsersRepository usersRepository;
-
-    @RequestMapping(value = "/user/place/{placeId}", method = RequestMethod.POST)
-    public ResponseEntity<Place> addPlaceForUser(@PathVariable("userId") Integer userId, @PathVariable("placeId") Integer placeId) {
-
-        //use optional in case the user is not existed
-        Optional<User> user = usersRepository.findById(userId);
-
-        Place newPlace = placesRepository.findById(placeId);
-
-        if (user.isPresent()) {
-           placesRepository.findAllByUserId(userId).save(place);
-        }
-
-        Place place = placesRepository.getOne(placeId);
-
-        //may not need now, because we load the places ourselves
-        if (place == null) {
-            throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
-        }
-
-
-        usersRepository.save(user);
-        return ResponseEntity.ok(user);
-    }
 }

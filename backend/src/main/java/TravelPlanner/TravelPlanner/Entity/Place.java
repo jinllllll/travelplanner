@@ -17,9 +17,11 @@ public class Place {
     private String placeInformation;
     @NotNull
     private String openTime;
+    @NotNull
+    private String ImageURL;
 
 
-    List<String> visitors;
+    private List<User> visitors;
 
     //constructor
     public Place() {
