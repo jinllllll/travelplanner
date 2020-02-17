@@ -1,4 +1,4 @@
-package TravelPlanner.TravelPlanner;
+package TravelPlanner.TravelPlanner.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
