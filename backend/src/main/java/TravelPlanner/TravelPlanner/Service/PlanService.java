@@ -7,6 +7,7 @@ import TravelPlanner.TravelPlanner.Repository.PlansRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,7 +52,11 @@ public class PlanService {
     }
 
     //save the plans into plansRepository
-    public void setPlansRepository(PlansRepository newRepository) {
-        this.plansRepository = newRepository;
+    public void savePlan(Integer planId, Integer userId) {
+        Plan plan = plansRepository.findPlanByPlanId(planId);
+        List<Plan> userPlanList = plansRepository.findPlansByUserId(userId);
+
+        userPlanList.add(plan);
+        plansRepository.save(new ArrayList<Plan>(userPlanList));
     }
 }

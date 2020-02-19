@@ -2,7 +2,7 @@ package TravelPlanner.TravelPlanner.Controller;
 
 import TravelPlanner.TravelPlanner.Entity.Place;
 import TravelPlanner.TravelPlanner.Entity.Plan;
-import TravelPlanner.TravelPlanner.Entity.User;
+import TravelPlanner.TravelPlanner.Repository.PlansRepository;
 import TravelPlanner.TravelPlanner.Service.PlaceService;
 import TravelPlanner.TravelPlanner.Service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,29 +32,35 @@ public class PlanController {
     }
 
     //save the plan
-    @RequestMapping(value = "/savePlan", method = RequestMethod.POST)
-    public Plan addPlan(@RequestBody Plan plan) {
-        return planService.addPlan(plan);
+    @RequestMapping(value = "/savePlan/{planId, userId}", method = RequestMethod.POST)
+    public void savePlan(@PathVariable Integer planId, Integer userId) {
+        planService.savePlan(planId, userId);
     }
 
-    //get user's plan
-    @RequestMapping(value = "/plan", method = RequestMethod.POST)
-    public List<Plan> getPlans(@RequestBody Plan plan) {
-
-        return planService.getPlansByUser();
+    //get user's planList
+    @RequestMapping(value = "/plan/{userId}", method = RequestMethod.POST)
+    public List<Plan> getPlans(@PathVariable Integer userId) {
+        return planService.getPlansByUser(userId);
     }
 
     //delete plan
     @RequestMapping(value = "/deletePlan/{planId}", method = RequestMethod.POST)
-    public boolean deletePlan(@PathVariable int planId, @RequestBody Plan plan) {
+    public boolean deletePlan(@PathVariable Integer planId) {
         planService.deletePlanById(planId);
         return true;
     }
 
     //get user's places
-    @RequestMapping(value = "/places", method = RequestMethod.POST)
+    @RequestMapping(value = "/places", method = RequestMethod.GET)
     public List<Place> getPlaces(@RequestBody Integer userId) {
         return placeService.getPlacesByUserId(userId);
+    }
+
+    //add place to cur plan
+    @RequestMapping(value = "/addPlace/{planId}", method = RequestMethod.POST)
+    public boolean addPlace(@PathVariable Plan plan, @RequestBody Place place, @PathVariable String planId) {
+        placeService.addPlace(plan, place);
+        return true;
     }
 
     //delete place
