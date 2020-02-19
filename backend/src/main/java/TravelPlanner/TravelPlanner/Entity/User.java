@@ -22,6 +22,12 @@ public class User {
     @NotNull
     private String mumberSince;
 
+    @NotNull
+    private String userEmail;
+
+    @NotNull
+    private String userPassword;
+
     public List<Place> getVisitingPlaces() {
         return visitingPlaces;
     }
@@ -45,4 +51,21 @@ public class User {
     public void setMumberSince(String mumberSince) {
         this.mumberSince = mumberSince;
     }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
 }
