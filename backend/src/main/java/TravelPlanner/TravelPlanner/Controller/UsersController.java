@@ -1,31 +1,51 @@
 package TravelPlanner.TravelPlanner.Controller;
 
-import TravelPlanner.TravelPlanner.Entity.Place;
 import TravelPlanner.TravelPlanner.Entity.User;
-import TravelPlanner.TravelPlanner.Repository.PlacesRepository;
-import TravelPlanner.TravelPlanner.Repository.UsersRepository;
+
+import TravelPlanner.TravelPlanner.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import sun.text.normalizer.ICUBinary;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class UsersController {
-    @Autowired
-    PlacesRepository placesRepository;
+
+    UserService userService;
 
     @Autowired
-    UsersRepository usersRepository;
+    public UsersController(UserService userService) {
+        super();
+        this.userService = userService;
+    }
 
+    public UsersController() {
+
+    }
+
+    //registration ---> createUser
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public User register(@Validated(Create.class) @RequestBody User user) {
+    public User register(@RequestBody User user) {
         return userService.createUser(user);
     }
 
+    //perform Login
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public User login(@Validated(ICUBinary.Authenticate.class) @RequestBody User user, HttpServletResponse response) {
+
+        user = userService.loginUser(user);
+        if (user == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
+        } else {
+            return user;
+        }
+    }
+
+    /*
     @RequestMapping(value = "/user/place/{placeId}", method = RequestMethod.POST)
     public ResponseEntity<User> addPlaceForUser(@PathVariable("userId") Integer userId, @PathVariable("placeId") Integer placeId) {
         Place newPlace = placesRepository.getOne(placeId);
@@ -45,4 +65,5 @@ public class UsersController {
             return ResponseEntity.ok(tempUser);
         }
     }
+    */
 }
