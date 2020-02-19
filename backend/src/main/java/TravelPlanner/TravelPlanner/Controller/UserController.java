@@ -12,17 +12,19 @@ import sun.text.normalizer.ICUBinary;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class UsersController {
+public class UserController {
 
     UserService userService;
+    private User user;
+    private HttpServletResponse response;
 
     @Autowired
-    public UsersController(UserService userService) {
+    public UserController(UserService userService) {
         super();
         this.userService = userService;
     }
 
-    public UsersController() {
+    public UserController() {
 
     }
 
@@ -35,6 +37,8 @@ public class UsersController {
     //perform Login
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public User login(@Validated(ICUBinary.Authenticate.class) @RequestBody User user, HttpServletResponse response) {
+        this.user = user;
+        this.response = response;
 
         user = userService.loginUser(user);
         if (user == null) {

@@ -32,6 +32,12 @@ public class PlanService {
         return userPlanList;
     }
 
+    //get the plan by planId because user might change certain places in the certain plan
+    public Plan getPlanByPlanId(Integer planId) {
+        Plan plan = plansRepository.findPlanByPlanId(planId);
+        return plan;
+    }
+
     //add Plan
     public Plan addPlan(Plan plan) {
         return plansRepository.save(plan);
