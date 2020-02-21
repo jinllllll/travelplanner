@@ -21,6 +21,7 @@ public class Plan {
 
     List<Place> placeList;
 
+    public Plan(){}
 
     //setter and setters
     public User getUser() {

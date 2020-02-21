@@ -1,11 +1,14 @@
 package TravelPlanner.TravelPlanner.Entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "user")
 public class User {
     @Id
@@ -20,13 +23,18 @@ public class User {
     private String userName;
 
     @NotNull
-    private String mumberSince;
+    private String memberSince;
 
     @NotNull
     private String userEmail;
 
     @NotNull
     private String userPassword;
+
+    public User(String userName, String userPassword) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+    }
 
     public List<Place> getVisitingPlaces() {
         return visitingPlaces;
@@ -44,12 +52,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getMumberSince() {
-        return mumberSince;
+    public String getMemberSince() {
+        return memberSince;
     }
 
-    public void setMumberSince(String mumberSince) {
-        this.mumberSince = mumberSince;
+    public void setMemberSince(String memberSince) {
+        this.memberSince = memberSince;
     }
 
     public String getUserEmail() {

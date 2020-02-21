@@ -26,7 +26,7 @@ public class PlaceService {
     }
 
     //not sure if this curPlan is unique or save????
-    public Plan curPlan;
+    //public Plan curPlan;
 
 
     //find all the places picked by user ---> might be check list in the end
@@ -37,16 +37,18 @@ public class PlaceService {
 
 
     //add a place to the plan
-    public void addPlace(Plan plan, Place place) {
-        curPlan = plan;
-        curPlan.getPlaceList().add(place);
-        plansRepository.save(curPlan);
+    public Plan addPlace(Plan plan, Place place) {
+        plan.getPlaceList().add(place);
+        return plansRepository.save(plan);
     }
 
     //delete place
-    public boolean deletePlace(Place place) {
-        curPlan.getPlaceList().remove(place);
-        return true;
+    public Plan deletePlace(Integer planId, Integer placeId) {
+        Plan plan = plansRepository.findPlanByPlanId(planId);
+        Place place = placesRepository.findAllByPlaceId(placeId);
+        plan.getPlaceList().remove(place);
+        plansRepository.deleteById(planId);
+        return plansRepository.save(plan);
     }
 
     //save the new plan into plansRepository

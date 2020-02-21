@@ -52,11 +52,10 @@ public class PlanService {
     }
 
     //save the plans into plansRepository
-    public void savePlan(Integer planId, Integer userId) {
-        Plan plan = plansRepository.findPlanByPlanId(planId);
-        List<Plan> userPlanList = plansRepository.findPlansByUserId(userId);
-
-        userPlanList.add(plan);
-        plansRepository.save(new ArrayList<Plan>(userPlanList));
+    public void savePlan(Plan plan, Integer userId) {
+        plan.setUserId(userId);
+        //List<Plan> userPlanList = plansRepository.findPlansByUserId(userId);
+        //userPlanList.add(plan);
+        plansRepository.save(plan);
     }
 }
