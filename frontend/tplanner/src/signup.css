@@ -1,0 +1,44 @@
+
+
+div.title {
+    font-size: 28px;
+    font-weight: 900;
+    text-align: center;
+    color: #333;
+    display: inline-block;
+    margin: 20px;
+}
+
+.temp{
+    margin: auto;
+    text-align: center;
+}
+
+.email-input {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.password-input {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.firstname-input{
+    width: 250px;
+    margin:0 auto;
+
+}
+.lastname-input{
+    width: 250px;
+    margin: 0 auto;
+}
+
+.container{
+    width: 500px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    align-content:center;
+    margin: auto;
+}
