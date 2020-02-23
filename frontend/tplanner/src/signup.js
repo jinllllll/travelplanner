@@ -2,6 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import "./signup.css";
+import { Link } from 'react-router-dom';
 
 import {
     Form,
@@ -119,15 +120,19 @@ class RegistrationForm extends React.Component {
                     </div>
 
                     <Form.Item >
-                        <Button type="primary" htmlType="submit">
-                            Register
+                        <Button type="primary" htmlType="submit" style={{width : 300, borderColor: "orange",
+                            backgroundColor:"orange"}}>
+                            Sign Up With Travel Planner
                         </Button>
                     </Form.Item>
+                    <div>
+                        Already have an account? <Link to="/login">Login</Link>
+                    </div>
                 </Form>
             </div>
         );
     }
 }
 
-export const WrappedRegistrationForm = Form.create({name: 'register'})(RegistrationForm);
+export const WrappedRegistrationForm = Form.create({name: 'Register'})(RegistrationForm);
 
