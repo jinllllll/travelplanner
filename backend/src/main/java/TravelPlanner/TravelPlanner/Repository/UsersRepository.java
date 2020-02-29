@@ -13,7 +13,7 @@ public interface UsersRepository extends JpaRepository<User, Integer> {
     List<User> findAll();
 
     //find all the visitors that went to the same place
-    List<User> findByPlaceId(Integer placeId);
+   // List<User> findByPlaceId(Integer placeId);
 
     //for the user to login
     User findByUserEmailAndUserPassword(String userEmail, String userPassword);

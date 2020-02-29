@@ -13,5 +13,5 @@ public interface PlacesRepository extends JpaRepository<Place, Integer> {
     Place findAllByPlaceId(Integer placeId);
 
     //find a list of places by userId
-    List<Place> findAllByUserId(Integer userId);
+    //List<Place> findAllByUserId(Integer userId);
 }
