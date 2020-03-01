@@ -5,6 +5,7 @@ import TravelPlanner.TravelPlanner.Repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,5 +38,9 @@ public class UserService {
     public Optional<User> findOneUser(Integer userId) {
         Optional<User> user = usersRepository.findById(userId);
         return user;
+    }
+
+    public List<User>  findAll() {
+        return usersRepository.findAll();
     }
 }

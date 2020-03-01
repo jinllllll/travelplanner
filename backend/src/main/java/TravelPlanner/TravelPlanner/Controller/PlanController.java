@@ -2,6 +2,7 @@ package TravelPlanner.TravelPlanner.Controller;
 
 import TravelPlanner.TravelPlanner.Entity.Place;
 import TravelPlanner.TravelPlanner.Entity.Plan;
+import TravelPlanner.TravelPlanner.Repository.PlacesRepository;
 import TravelPlanner.TravelPlanner.Repository.PlansRepository;
 import TravelPlanner.TravelPlanner.Service.PlaceService;
 import TravelPlanner.TravelPlanner.Service.PlanService;
@@ -32,42 +33,50 @@ public class PlanController {
     }
 
     //save the plan
-    @RequestMapping(value = "/savePlan/{planId, userId}", method = RequestMethod.POST)
-    public void savePlan(@PathVariable Integer planId, Integer userId) {
-        planService.savePlan(planId, userId);
+    @PostMapping("/plan/{userId}")
+    public void savePlan(@RequestBody Plan plan, @PathVariable Integer userId) {
+        planService.savePlan(plan, userId);
     }
 
     //get user's planList
-    @RequestMapping(value = "/plan/{userId}", method = RequestMethod.POST)
+    @GetMapping("/plan/{userId}")
     public List<Plan> getPlans(@PathVariable Integer userId) {
         return planService.getPlansByUser(userId);
     }
 
     //delete plan
-    @RequestMapping(value = "/deletePlan/{planId}", method = RequestMethod.POST)
+    @DeleteMapping("/deletePlan/{planId}")
     public boolean deletePlan(@PathVariable Integer planId) {
         planService.deletePlanById(planId);
         return true;
     }
+    @GetMapping("/places")
+    public List<Place> getAllPlaces() {
+        return placeService.findAll();
+    }
+
+    @GetMapping("/plan/generate/{userId}")
+    public Plan generatePlan(@RequestBody List<Place> placeList, @PathVariable Integer userId) {
+        return planService.generatePlan(placeList, userId);
+    }
 
     //get user's places
-    @RequestMapping(value = "/places", method = RequestMethod.GET)
-    public List<Place> getPlaces(@RequestBody Integer userId) {
-        return placeService.getPlacesByUserId(userId);
-    }
+//    @GetMapping("/places/{userId}")
+//    public List<Place> getPlaces(@PathVariable Integer userId) {
+//        return placeService.getPlacesByUserId(userId);
+//    }
 
-    //add place to cur plan
-    @RequestMapping(value = "/addPlace/{planId}", method = RequestMethod.POST)
-    public boolean addPlace(@PathVariable Plan plan, @RequestBody Place place, @PathVariable String planId) {
-        placeService.addPlace(plan, place);
-        return true;
-    }
+//    //add place to cur plan
+//    @PutMapping("/addPlace/{planId}")
+//    public Plan addPlace( @RequestBody Place place, @PathVariable Integer planId) {
+//        Plan plan = planService.getPlanByPlanId(planId);
+//        return placeService.addPlace(plan, place);
+//    }
 
-    //delete place
-    @RequestMapping(value = "/deletePlace/{placeId}", method = RequestMethod.POST)
-    public boolean deletePlace(@RequestBody Place place) {
-        placeService.deletePlace(place);
-        return true;
-    }
+//    //delete place
+//    @DeleteMapping("/deletePlace/{placeId}&{planId}")
+//    public Plan deletePlace(@PathVariable Integer placeId, @PathVariable Integer planId) {
+//        return placeService.deletePlace(planId, placeId);
+//    }
 
 }
